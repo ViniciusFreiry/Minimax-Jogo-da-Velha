@@ -73,7 +73,7 @@ function makeMove(index) {
 
 // Função para a IA fazer sua jogada
 function aiMove() {
-    const bestMove = minimax(board, 9, false);
+    const bestMove = minimax(board, 8, false);
     board[bestMove] = PLAYER_O;
     drawBoard();
 
@@ -104,10 +104,10 @@ function minimax(board, depth, isMaximizingPlayer) {
 
     if (isMaximizingPlayer) {
         let bestVal = -Infinity;
-        for (let i = 0; i < 9; i++) {
+        for (let i = 0; i < depth; i++) {
             if (board[i] === EMPTY) {
                 board[i] = PLAYER_O;
-                const moveVal = minimax(board, depth + 1, false);
+                const moveVal = minimax(board, depth - 1, false);
                 board[i] = EMPTY;
                 if (moveVal > bestVal) {
                     bestMove = i;
@@ -118,10 +118,10 @@ function minimax(board, depth, isMaximizingPlayer) {
         return bestMove;
     } else {
         let bestVal = Infinity;
-        for (let i = 0; i < 9; i++) {
+        for (let i = 0; i < depth; i++) {
             if (board[i] === EMPTY) {
                 board[i] = PLAYER_X;
-                const moveVal = minimax(board, depth + 1, true);
+                const moveVal = minimax(board, depth - 1, true);
                 board[i] = EMPTY;
                 if (moveVal < bestVal) {
                     bestMove = i;
